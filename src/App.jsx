@@ -1,5 +1,6 @@
 import { HelmetProvider } from 'react-helmet-async';
 import SEO from './components/SEO';
+import ErrorBoundary from './components/ErrorBoundary';
 import PageTransition from './components/PageTransition';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -16,23 +17,25 @@ import Footer from './components/Footer';
 function App() {
   return (
     <HelmetProvider>
-      <div className="App">
-        <PageTransition />
-        <SEO />
-        <Navbar />
-        <main>
-          <Hero />
-          <Services />
-          <About />
-          <Portfolio />
-          <Process />
-          <Testimonials />
-          <Technologies />
-          <CTA />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <ErrorBoundary>
+        <div className="App">
+          <PageTransition />
+          <SEO />
+          <Navbar />
+          <main id="main-content">
+            <Hero />
+            <Services />
+            <About />
+            <Portfolio />
+            <Process />
+            <Testimonials />
+            <Technologies />
+            <CTA />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </ErrorBoundary>
     </HelmetProvider>
   );
 }

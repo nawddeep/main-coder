@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { 
   Mail, 
   Phone, 
@@ -13,9 +14,11 @@ import {
 } from 'lucide-react';
 import { companyInfo } from '../data';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { config } from '../config/env';
 
 const Contact = () => {
   const [ref, isVisible] = useScrollAnimation();
+  const formRef = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,6 +27,7 @@ const Contact = () => {
     message: ''
   });
   const [status, setStatus] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const services = [
     'Web Development',
@@ -36,18 +40,76 @@ const Contact = () => {
   ];
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error for this field
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+    
+    // Check if EmailJS is configured
+    if (!config.emailjs.isConfigured) {
+      console.warn('EmailJS not configured. Please set up environment variables.');
+      setStatus('error');
+      setTimeout(() => setStatus(null), 5000);
+      return;
+    }
+    
     setStatus('sending');
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      await emailjs.send(
+        config.emailjs.serviceId,
+        config.emailjs.templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || 'Not provided',
+          service: formData.service || 'Not specified',
+          message: formData.message,
+          to_email: companyInfo.email
+        },
+        config.emailjs.publicKey
+      );
+      
       setStatus('success');
       setFormData({
         name: '',
@@ -58,7 +120,11 @@ const Contact = () => {
       });
       
       setTimeout(() => setStatus(null), 5000);
-    }, 2000);
+    } catch (error) {
+      console.error('Email send failed:', error);
+      setStatus('error');
+      setTimeout(() => setStatus(null), 5000);
+    }
   };
 
   return (
@@ -96,7 +162,14 @@ const Contact = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {status === 'error' && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center space-x-3">
+                <AlertCircle className="w-5 h-5 text-red-600" />
+                <span className="text-red-800">Failed to send message. Please try again or email us directly at {companyInfo.email}</span>
+              </div>
+            )}
+
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -108,9 +181,14 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all outline-none"
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      errors.name ? 'border-red-300 focus:border-red-600 focus:ring-red-100' : 'border-slate-200 focus:border-blue-600 focus:ring-blue-100'
+                    } focus:ring-2 transition-all outline-none`}
                     placeholder="Your full name"
                   />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                  )}
                 </div>
                 
                 <div>
@@ -123,9 +201,14 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all outline-none"
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      errors.email ? 'border-red-300 focus:border-red-600 focus:ring-red-100' : 'border-slate-200 focus:border-blue-600 focus:ring-blue-100'
+                    } focus:ring-2 transition-all outline-none`}
                     placeholder="your@email.com"
                   />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -174,9 +257,14 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all outline-none resize-none"
+                  className={`w-full px-4 py-3 rounded-xl border ${
+                    errors.message ? 'border-red-300 focus:border-red-600 focus:ring-red-100' : 'border-slate-200 focus:border-blue-600 focus:ring-blue-100'
+                  } focus:ring-2 transition-all outline-none resize-none`}
                   placeholder="Tell us about your project, goals, timeline, and any specific requirements..."
                 />
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                )}
               </div>
 
               <button

@@ -19,6 +19,22 @@ const Testimonials = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevTestimonial();
+      } else if (e.key === 'ArrowRight') {
+        nextTestimonial();
+      } else if (e.key === 'Escape') {
+        setIsAutoPlaying(false);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     setIsAutoPlaying(false);
@@ -96,6 +112,7 @@ const Testimonials = () => {
           {/* Navigation Arrows */}
           <button
             onClick={prevTestimonial}
+            aria-label="Previous testimonial"
             className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-blue-600 hover:text-blue-600 transition-colors shadow-soft-sm"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -103,6 +120,7 @@ const Testimonials = () => {
           
           <button
             onClick={nextTestimonial}
+            aria-label="Next testimonial"
             className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white border border-slate-200 rounded-full flex items-center justify-center hover:border-blue-600 hover:text-blue-600 transition-colors shadow-soft-sm"
           >
             <ChevronRight className="w-6 h-6" />
@@ -110,11 +128,14 @@ const Testimonials = () => {
         </div>
 
         {/* Dots Navigation */}
-        <div className="flex justify-center space-x-3 mb-12">
+        <div className="flex justify-center space-x-3 mb-12" role="tablist" aria-label="Testimonial navigation">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => goToTestimonial(index)}
+              role="tab"
+              aria-label={`Go to testimonial ${index + 1}`}
+              aria-selected={index === currentIndex}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? 'bg-blue-600 w-8'

@@ -35,11 +35,20 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-      isScrolled 
-        ? 'bg-white/95 backdrop-blur-strong shadow-smooth border-b border-slate-200/50' 
-        : 'bg-transparent'
-    }`}>
+    <>
+      {/* Skip Navigation Link for Accessibility */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-6 focus:py-3 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Skip to main content
+      </a>
+      
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-strong shadow-smooth border-b border-slate-200/50' 
+          : 'bg-transparent'
+      }`}>
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -58,6 +67,7 @@ const Navbar = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
+                aria-label={`Navigate to ${item.name} section`}
                 className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group ${
                   activeSection === item.href.slice(1) 
                     ? 'text-blue-600' 
@@ -78,6 +88,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <button 
               onClick={() => scrollToSection('#contact')}
+              aria-label="Navigate to contact form"
               className="btn-primary"
             >
               Get Started
@@ -88,6 +99,8 @@ const Navbar = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
               className="p-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:scale-110"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -123,8 +136,8 @@ const Navbar = () => {
             </div>
           </div>
         )}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
