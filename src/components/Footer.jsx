@@ -3,12 +3,9 @@ import {
   Mail, 
   Phone, 
   MapPin,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Github,
   Heart
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { companyInfo } from '../data';
 
 const Footer = () => {
@@ -18,20 +15,12 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const quickLinks = [
-    { name: 'Home', href: '#hero' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'About', path: '/about' },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Contact', path: '/contact' }
   ];
 
   const services = [
@@ -89,42 +78,6 @@ const Footer = () => {
                 <span className="text-slate-300">{companyInfo.address}</span>
               </div>
             </div>
-
-            {/* Social Media */}
-            <div className="flex space-x-4">
-              <a
-                href={companyInfo.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-slate-800 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href={companyInfo.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-slate-800 hover:bg-sky-500 rounded-lg flex items-center justify-center transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href={companyInfo.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-slate-800 hover:bg-pink-500 rounded-lg flex items-center justify-center transition-colors"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href={companyInfo.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-slate-800 hover:bg-slate-600 rounded-lg flex items-center justify-center transition-colors"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -133,12 +86,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
+                  <Link
+                    to={link.path}
                     className="text-slate-300 hover:text-white transition-colors"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -150,12 +103,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
-                  <button
-                    onClick={() => scrollToSection('#services')}
+                  <Link
+                    to="/services"
                     className="text-slate-300 hover:text-white transition-colors"
                   >
                     {service}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

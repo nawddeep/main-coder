@@ -5,13 +5,7 @@ export const companyInfo = {
   email: "contact@coder.com",
   phone: "+1 (555) 123-4567",
   address: "123 Innovation Drive, Tech City, TC 12345",
-  founded: 2020,
-  social: {
-    linkedin: "https://linkedin.com/company/coder",
-    twitter: "https://twitter.com/coder",
-    instagram: "https://instagram.com/coder",
-    github: "https://github.com/coder"
-  }
+  founded: 2020
 };
 
 export const services = [
