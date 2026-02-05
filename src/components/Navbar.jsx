@@ -50,8 +50,7 @@ const Navbar = () => {
           : 'bg-transparent'
       }`}>
       <div className="container-custom">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16 sm:h-20">{/* Logo */}
           <div className="flex items-center">
             <div className="flex items-center space-x-3 group cursor-pointer">
               <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">

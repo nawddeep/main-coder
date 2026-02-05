@@ -62,7 +62,7 @@
   /* Mobile-specific optimizations */
   @media (max-width: 768px) {
     html {
-      scroll-padding-top: 70px;
+      scroll-padding-top: 64px;
     }
     
     h1 {
