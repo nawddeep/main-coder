@@ -1,16 +1,10 @@
 import { ArrowRight, Play, CheckCircle, Users, Award, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { companyInfo, stats } from '../data';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Hero = () => {
   const [ref, isVisible] = useScrollAnimation();
-
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/30 pt-20 sm:pt-24 lg:pt-0">
@@ -49,20 +43,20 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button 
-                onClick={() => scrollToSection('#contact')}
+              <Link 
+                to="/contact"
                 className="btn-primary group w-full sm:w-auto"
               >
                 Start Your Project
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-              </button>
-              <button 
-                onClick={() => scrollToSection('#portfolio')}
+              </Link>
+              <Link 
+                to="/portfolio"
                 className="btn-secondary group w-full sm:w-auto"
               >
                 <Play className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 View Our Work
-              </button>
+              </Link>
             </div>
 
             {/* Trust Indicators */}
