@@ -29,20 +29,20 @@ const Hero = () => {
             className={`space-y-8 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
           >
             {/* Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-sm font-medium hover:scale-105 transition-transform duration-300 cursor-pointer">
-              <Award className="w-4 h-4 mr-2" />
+            <div className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs sm:text-sm font-medium hover:scale-105 transition-transform duration-300 cursor-pointer">
+              <Award className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
               Award-Winning Development Team
             </div>
 
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
                 Build the Future with{' '}
                 <span className="text-gradient">
                   Innovative Digital Solutions
                 </span>
               </h1>
-              <p className="text-xl text-slate-600 leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
                 {companyInfo.description}
               </p>
             </div>
@@ -66,18 +66,18 @@ const Hero = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex items-center space-x-6 pt-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-6 pt-4">
               <div className="flex items-center space-x-2 group cursor-pointer">
-                <CheckCircle className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">Free Consultation</span>
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
+                <span className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">Free Consultation</span>
               </div>
               <div className="flex items-center space-x-2 group cursor-pointer">
-                <CheckCircle className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">30-Day Guarantee</span>
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
+                <span className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">30-Day Guarantee</span>
               </div>
               <div className="flex items-center space-x-2 group cursor-pointer">
-                <CheckCircle className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
-                <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">24/7 Support</span>
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
+                <span className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">24/7 Support</span>
               </div>
             </div>
           </div>
