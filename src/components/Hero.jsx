@@ -26,7 +26,7 @@ const Hero = () => {
           {/* Content */}
           <div 
             ref={ref}
-            className={`space-y-8 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
+            className={`space-y-6 sm:space-y-8 text-center lg:text-left ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
           >
             {/* Badge */}
             <div className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 text-xs sm:text-sm font-medium hover:scale-105 transition-transform duration-300 cursor-pointer">
@@ -42,23 +42,23 @@ const Hero = () => {
                   Innovative Digital Solutions
                 </span>
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 {companyInfo.description}
               </p>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={() => scrollToSection('#contact')}
-                className="btn-primary group"
+                className="btn-primary group w-full sm:w-auto"
               >
                 Start Your Project
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
               </button>
               <button 
                 onClick={() => scrollToSection('#portfolio')}
-                className="btn-secondary group"
+                className="btn-secondary group w-full sm:w-auto"
               >
                 <Play className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 View Our Work
@@ -66,7 +66,7 @@ const Hero = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-6 pt-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-6 pt-4">
               <div className="flex items-center space-x-2 group cursor-pointer">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 group-hover:scale-110 transition-transform duration-300" />
                 <span className="text-xs sm:text-sm text-slate-600 group-hover:text-slate-900 transition-colors duration-300">Free Consultation</span>
