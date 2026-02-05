@@ -6,11 +6,7 @@ import {
   MapPin, 
   Send, 
   CheckCircle, 
-  AlertCircle,
-  Linkedin,
-  Twitter,
-  Instagram,
-  Github
+  AlertCircle
 } from 'lucide-react';
 import { companyInfo } from '../data';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -337,55 +333,6 @@ const Contact = () => {
                     <p className="text-sm text-slate-500">By appointment only</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Social Media */}
-            <div className="glass-card p-8">
-              <h3 className="text-xl font-bold text-slate-900 mb-6">
-                Follow us on social media
-              </h3>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <a
-                  href={companyInfo.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors group"
-                >
-                  <Linkedin className="w-6 h-6 text-blue-600" />
-                  <span className="font-medium text-slate-900 group-hover:text-blue-600">LinkedIn</span>
-                </a>
-                
-                <a
-                  href={companyInfo.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 p-4 bg-sky-50 hover:bg-sky-100 rounded-xl transition-colors group"
-                >
-                  <Twitter className="w-6 h-6 text-sky-600" />
-                  <span className="font-medium text-slate-900 group-hover:text-sky-600">Twitter</span>
-                </a>
-                
-                <a
-                  href={companyInfo.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 p-4 bg-pink-50 hover:bg-pink-100 rounded-xl transition-colors group"
-                >
-                  <Instagram className="w-6 h-6 text-pink-600" />
-                  <span className="font-medium text-slate-900 group-hover:text-pink-600">Instagram</span>
-                </a>
-                
-                <a
-                  href={companyInfo.social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors group"
-                >
-                  <Github className="w-6 h-6 text-slate-600" />
-                  <span className="font-medium text-slate-900 group-hover:text-slate-600">GitHub</span>
-                </a>
               </div>
             </div>
 

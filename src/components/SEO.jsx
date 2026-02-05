@@ -25,13 +25,7 @@ const SEO = ({
     address: {
       '@type': 'PostalAddress',
       streetAddress: companyInfo.address
-    },
-    sameAs: [
-      companyInfo.social.linkedin,
-      companyInfo.social.twitter,
-      companyInfo.social.instagram,
-      companyInfo.social.github
-    ]
+    }
   };
 
   return (
